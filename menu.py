@@ -1,5 +1,6 @@
 from BombaGasolina import BombaGasolina
 from BombaEtanol import BombaEtanol
+from BombaDiesel import BombaDiesel
 
 def exibir_menu():
     print("Posto")
@@ -9,11 +10,14 @@ def exibir_menu():
     print("4 - Abastecer Gasolina por Litro")
     print("5 - Abastecer Gasolina com Aditivo por Valor")
     print("6 - Abastecer Gasolina com Aditivo por Litro")
-    print("7 - Sair")
+    print("7 - Abastecer Diesel por Valor")
+    print("8 - Abastecer Diesel por Litro")
+    print("9 - Sair")
 
 def main():
     bomba1 = BombaEtanol(valor_litro=3, quantidade_disponivel=1000)
     bomba2 = BombaGasolina(valor_litro=4, quantidade_disponivel=1000)
+    bomba3 = BombaDiesel(valor_litro=3.5, quantidade_disponivel=1000)
     
     while True:
         exibir_menu()
@@ -68,10 +72,27 @@ def main():
                 print(f"Valor a pagar: R${valor:.2f}")
 
         elif opcao == '7':
+            valor = float(input("Digite o valor para abastecer com diesel: "))
+            litros = bomba3.abastecer_por_valor(valor)
+            if litros <= 0:
+                print("Quantidade insuficiente na bomba ou valor inválido.")
+            else:
+                print(f"Abastecido {litros} litros de diesel.")
+
+        elif opcao == '8':
+            litros = float(input("Digite a quantidade de litros para abastecer com diesel: "))
+            valor = bomba3.abastecer_por_litro(litros)
+            if valor <= 0:
+                print("Quantidade insuficiente na bomba ou quantidade de litros inválida.")
+            else:
+                print(f"Valor a pagar: R${valor:.2f}")
+
+        elif opcao == '9':
             print("Saindo")
             break
 
         else:
-            print("Opção inválida !!!")
-            print("Tente novamente")
-main()
+            print("Opção inválida! Tente novamente.")
+
+if __name__ == "__main__":
+    main()
