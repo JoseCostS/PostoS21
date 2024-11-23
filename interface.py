@@ -49,8 +49,8 @@ def criar_botoes_selecao():
         ("Etanol por Litros", lambda: mostrar_abastecimento("litros", bomba_etanol)),
         ("Gasolina por Valor", lambda: mostrar_abastecimento("valor", bomba_gasolina)),
         ("Gasolina por Litros", lambda: mostrar_abastecimento("litros", bomba_gasolina)),
-        ("Gasolina Aditivada por Valor", lambda: mostrar_abastecimento("valor", bomba_gasolina, aditivo=True)),
-        ("Gasolina Aditivada por Litros", lambda: mostrar_abastecimento("litros", bomba_gasolina, aditivo=True)),
+        ("Diesel por Valor", lambda: mostrar_abastecimento("valor", bomba_gasolina)),
+        ("Diesel por Litros", lambda: mostrar_abastecimento("litros", bomba_gasolina)),
     ]
 
     for text, command in opcoes:
