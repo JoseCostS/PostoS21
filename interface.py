@@ -2,13 +2,15 @@ import tkinter as tk
 from tkinter import messagebox
 from BombaGasolina import BombaGasolina
 from BombaEtanol import BombaEtanol
+from BombaDiesel import BombaDiesel  # Importa a classe BombaDiesel
 
 # Instanciando as bombas de combustível
 bomba_etanol = BombaEtanol(valor_litro=3, quantidade_disponivel=1000)
 bomba_gasolina = BombaGasolina(valor_litro=4, quantidade_disponivel=1000)
+bomba_diesel = BombaDiesel(valor_litro=3.5, quantidade_disponivel=1000)  # Diesel
 
 # Função para mostrar a entrada de dados para abastecimento
-def mostrar_abastecimento(modo, bomba, aditivo=False):
+def mostrar_abastecimento(modo, bomba):
     janela_abastecimento = tk.Toplevel(janela_principal)
     janela_abastecimento.title("Posto de Combustível - Abastecer")
     janela_abastecimento.geometry("400x300")
@@ -18,13 +20,13 @@ def mostrar_abastecimento(modo, bomba, aditivo=False):
         try:
             entrada = float(entry_dado.get())
             if modo == "valor":
-                litros = bomba.abastecer_por_valor_com_aditivo(entrada) if aditivo else bomba.abastecer_por_valor(entrada)
+                litros = bomba.abastecer_por_valor(entrada)
                 if litros > 0:
                     messagebox.showinfo("Abastecido", f"Abastecido {litros:.2f} litros.")
                 else:
                     messagebox.showerror("Erro", "Quantidade insuficiente ou valor inválido.")
             elif modo == "litros":
-                valor = bomba.abastecer_por_litro_com_aditivo(entrada) if aditivo else bomba.abastecer_por_litro(entrada)
+                valor = bomba.abastecer_por_litro(entrada)
                 if valor > 0:
                     messagebox.showinfo("Valor", f"Valor a pagar: R${valor:.2f}")
                 else:
@@ -49,8 +51,8 @@ def criar_botoes_selecao():
         ("Etanol por Litros", lambda: mostrar_abastecimento("litros", bomba_etanol)),
         ("Gasolina por Valor", lambda: mostrar_abastecimento("valor", bomba_gasolina)),
         ("Gasolina por Litros", lambda: mostrar_abastecimento("litros", bomba_gasolina)),
-        ("Gasolina Aditivada por Valor", lambda: mostrar_abastecimento("valor", bomba_gasolina, aditivo=True)),
-        ("Gasolina Aditivada por Litros", lambda: mostrar_abastecimento("litros", bomba_gasolina, aditivo=True)),
+        ("Diesel por Valor", lambda: mostrar_abastecimento("valor", bomba_diesel)),  # Diesel
+        ("Diesel por Litros", lambda: mostrar_abastecimento("litros", bomba_diesel)),  # Diesel
     ]
 
     for text, command in opcoes:
